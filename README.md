@@ -1,7 +1,8 @@
 # 148_project
- Home network monitoring
+ Home Network Monitoring and Alerting System
 
-need to install: 
+Need to Install: 
 pip install Flask
 pip install Flask-SQLAlchemy
 pip install sqlalchemy-utils
+pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
