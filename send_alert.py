@@ -105,7 +105,7 @@ if __name__ == "__main__":
     user_id = 'me'
     dt = datetime.now()
     sdt = dt.strftime("%m-%d-%Y, %H:%M:%S")
-    msg = create_message_with_attachment('148monitoringsystem@gmail.com', 'brandonalow@gmail.com', 'MAJOR PACKET ALERT',f'This is an automated system message:\nSuspicious packet detected.\n{sdt}', './payload.pcapng')
+    msg = create_message_with_attachment('148networkmas@gmail.com', 'brandonalow@gmail.com', 'MAJOR PACKET ALERT',f'This is an automated system message:\nSuspicious packet detected.\n{sdt}', './mockpayload.txt')
     send_message(service, user_id, msg)
     
 
