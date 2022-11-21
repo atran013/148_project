@@ -100,7 +100,7 @@ def create_message_with_attachment(
     return {'raw': raw_message.decode('utf-8')}
  
 
-if __name__ == "__main__":
+def send_email():
     service = get_service()
     user_id = 'me'
     dt = datetime.now()
