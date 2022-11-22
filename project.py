@@ -1,6 +1,5 @@
 from database import db
-import scapy.all as scapy
-from scapy.all import *
+import scapy.all as scapy1
 from sqlalchemy_utils import database_exists
 from database import device
 from send_alert import send_email
