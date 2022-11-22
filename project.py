@@ -28,25 +28,45 @@ def verify():
     addr = input("Please enter device's ip address (11 char) or mac address (17 char):\n")
 
     if(len(addr) == 11):
-        temp = device.query.filter_by(ip = addr).update(dict(verified = True))
-        db.session.commit()
+        temp = device.query.filter_by(ip = addr).first()
+
+        if(temp):
+            temp.verified = True
+            db.session.commit()
+            print("Device Verified - Mac:", temp.mac, " Ip:", temp.ip, "\n")
+        else:
+            print("Invalid Ip Address Entered\n")
     elif(len(addr) == 17):
-        temp = device.query.filter_by(ip = addr).update(dict(verified = True))
-        db.session.commit()
+        temp = device.query.filter_by(mac = addr).first()
+
+        if(temp):
+            temp.verified = True
+            db.session.commit()
+            print("Device Verified - Mac:", temp.mac, " Ip:", temp.ip, "\n")
+        else:
+            print("Invalid Mac Address Entered\n")
     else:
-        print('Invalid address entered')
+        print('Invalid Address Entered\n')
 
 def devList():
-    for i in device.query.all():
-        print("Mac:", i.mac, " Ip:", i.ip, " Verified:", i.verified, "\n")
+    temp = device.query.all()
 
+    if(temp):
+        for i in temp:
+            print("Mac:", i.mac, " Ip:", i.ip, " Verified:", i.verified, "\n")
+    else:
+        print("There are no devices in the database.\n")
+
+def deldb():
+    device.query.delete()
+    db.session.commit()
 
 def main():
     if not database_exists('sqlite:///devices.db'):
         db.create_all()
 
     while(True):
-        option = input("Please select an option (To quit, input anything else):\n1. Scan Network for Devices\n2. Send Email for all non-verified devices\n3. Verify Device (Given ip address or mac address)\n4. View list of devices\n")
+        option = input("Please select an option (To quit, input anything else):\n1. Scan Network for Devices\n2. Send Email for all non-verified devices\n3. Verify Device (Given ip address or mac address)\n4. View list of devices\n5. Delete all devices from database\n")
 
         if(option == "1"):
             netscan()
@@ -56,10 +76,10 @@ def main():
             verify()
         elif(option == "4"):
             devList()
+        elif(option == "5"):
+            deldb()
         else:
             break
-
-
 
 if __name__ == "__main__":
     main()
