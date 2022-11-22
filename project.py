@@ -1,5 +1,6 @@
 from database import db
 import scapy.all as scapy
+from scapy.all import *
 from sqlalchemy_utils import database_exists
 from database import device
 from send_alert import send_email
@@ -39,6 +40,12 @@ def verify():
 def devList():
     for i in device.query.all():
         print("Mac:", i.mac, " Ip:", i.ip, " Verified:", i.verified, "\n")
+
+
+def packy():
+    packets = sniff(filter="host 1.1.1.1")
+    wrpcap("supa.pcap",packets)
+    #packet.show()
 
 
 def main():
