@@ -1,6 +1,5 @@
 from database import db
 import scapy.all as scapy
-#from scapy.all import *
 from sqlalchemy_utils import database_exists
 from database import device
 from send_alert import send_email
@@ -64,9 +63,9 @@ def deldb():
 
 def paCap(IPA):
     #packets = sniff(filter="ether host 00:a3:8e:23:ae:8b")
-    packet = IP(src=f"{IPA}")
-    wrpcap("captured.pcap",packet)
-    #packet.show()
+    packet = scapy.IP(src=f"{IPA}")
+    scapy.wrpcap("captured.pcap",packet)
+    packet.show()
 
 
 def main():
