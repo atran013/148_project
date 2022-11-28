@@ -100,12 +100,12 @@ def create_message_with_attachment(
     return {'raw': raw_message.decode('utf-8')}
  
 
-def send_email(tAddress):
+def send_email(IPA):
     service = get_service()
     user_id = 'me'
     dt = datetime.now()
     sdt = dt.strftime("%m-%d-%Y, %H:%M:%S")
-    msg = create_message_with_attachment('148networkmas@gmail.com', 'brandonalow@gmail.com', f'Suspicious Activity from {tAddress}',f'This is an automated system message:\nSuspicious packet detected.\n{sdt}', './mockpayload.txt')
+    msg = create_message_with_attachment('148networkmas@gmail.com', 'brandonalow@gmail.com', f'Suspicious Activity from {IPA}',f'This is an automated system message:\nSuspicious packet detected.\n{sdt}', './captured.pcap')
     send_message(service, user_id, msg)
     
 
