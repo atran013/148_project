@@ -25,7 +25,7 @@ def netscan():
             print("New Device Added - Mac:", element[1].hwsrc, " Ip:", element[1].psrc, " Verified:", "False\n")
             
 def verify():
-    addr = input("Please enter device's ip address (11 char) or mac address (17 char):\n")
+    addr = input("Please enter device's IP address (11 char) or MAC address (17 char):\n")
 
     if(len(addr) == 11):
         temp = device.query.filter_by(ip = addr).first()
@@ -33,7 +33,7 @@ def verify():
         if(temp):
             temp.verified = True
             db.session.commit()
-            print("Device Verified - Mac:", temp.mac, " Ip:", temp.ip, "\n")
+            print("Device Verified - Mac:", temp.mac, " IP:", temp.ip, "\n")
         else:
             print("Invalid Ip Address Entered\n")
     elif(len(addr) == 17):
@@ -42,7 +42,7 @@ def verify():
         if(temp):
             temp.verified = True
             db.session.commit()
-            print("Device Verified - Mac:", temp.mac, " Ip:", temp.ip, "\n")
+            print("Device Verified - Mac:", temp.mac, " IP:", temp.ip, "\n")
         else:
             print("Invalid Mac Address Entered\n")
     else:
@@ -73,7 +73,7 @@ def main():
         db.create_all()
     IPA = "192.168.1.0" #PLACEHOLDER
     while(True):
-        option = input("Please select an option (To quit, input anything else):\n1. Scan Network for Devices\n2. Send Email for all non-verified devices\n3. Verify Device (Given ip address or mac address)\n4. View list of devices\n5. Delete all devices from database\n6. Packet capture test\n")
+        option = input("Please select an option (To quit, input letter):\n1. Scan Network for Devices\n2. Send Email for all Non-Verified devices\n3. Verify Device (Given IP or MAC address)\n4. View list of devices\n5. Delete all devices from database\n6. Packet Capture\n")
 
         if(option == "1"):
             netscan()
