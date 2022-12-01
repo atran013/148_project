@@ -107,11 +107,4 @@ def send_email(IPA):
     sdt = dt.strftime("%m-%d-%Y, %H:%M:%S")
     msg = create_message_with_attachment('148networkmas@gmail.com', 'brandonalow@gmail.com', f'Suspicious Activity from {IPA}',f'This is an automated system message:\nSuspicious packet detected.\n{sdt}', './captured.pcap')
     send_message(service, user_id, msg)
-    
-#For updating tokens
-#def main():
-#    IPA = "192.168.1.0"
-#    send_email(IPA)
-#
-#if __name__ == "__main__":
-#    main()
+
