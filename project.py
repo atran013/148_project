@@ -4,7 +4,7 @@ from sqlalchemy_utils import database_exists
 from database import device
 from send_alert import send_email
 
-def netscan():
+def netscan(): #Andrew
     request = scapy.ARP()
 
     request.pdst = '192.168.1.1/24'
@@ -24,7 +24,7 @@ def netscan():
 
             print("New Device Added - Mac:", element[1].hwsrc, " Ip:", element[1].psrc, " Verified:", "False\n")
             
-def verify():
+def verify(): #Andrew
     addr = input("Please enter device's ip address (11 char) or mac address (17 char):\n")
 
     if(len(addr) == 11):
@@ -57,11 +57,11 @@ def devList():
     else:
         print("There are no devices in the database.\n")
 
-def deldb():
+def deldb(): #Andrew
     device.query.delete()
     db.session.commit()
 
-def sendforunverified():
+def sendforunverified(): #Andrew
     temp = device.query.all()
 
     if(temp):
@@ -71,12 +71,12 @@ def sendforunverified():
     else:
         print("There are no devices in the database.\n")
 
-def paCap(IPA):
+def paCap(IPA): #Brandon
     packet = scapy.IP(src=f"{IPA}")
     scapy.wrpcap("captured.pcap",packet)
     packet.show()
 
-def online():
+def online(): #Andrew - Incomplete
     IPA = input("Please input an 11 character IP address to check.")
 
     if(len(IPA) != 11):
@@ -91,7 +91,7 @@ def online():
         print("Cannot reach the specified device.\n")
 
 
-def main():
+def main(): #Andrew
     if not database_exists('sqlite:///devices.db'):
         db.create_all()
 
