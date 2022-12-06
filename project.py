@@ -3,6 +3,7 @@ import scapy.all as scapy
 from sqlalchemy_utils import database_exists
 from database import device
 from send_alert import send_email
+from connection_monitor import monitor
 
 def netscan():
     request = scapy.ARP()
@@ -73,7 +74,7 @@ def main():
         db.create_all()
     IPA = "192.168.1.0" #PLACEHOLDER
     while(True):
-        option = input("Please select an option (To quit, input letter):\n1. Scan Network for Devices\n2. Send Email for all Non-Verified devices\n3. Verify Device (Given IP or MAC address)\n4. View list of devices\n5. Delete all devices from database\n6. Packet Capture\n")
+        option = input("Please select an option (To quit, input letter):\n1. Scan Network for Devices\n2. Send Email for all Non-Verified devices\n3. Verify Device (Given IP or MAC address)\n4. View list of devices\n5. Delete all devices from database\n6. Packet Capture\n7. Main Device Status Monitor (Ctrl+C to End)\n")
 
         if(option == "1"):
             netscan()
@@ -87,6 +88,8 @@ def main():
             deldb()
         elif(option == "6"):
             paCap(IPA)
+        elif(option == "7"):
+            monitor()
         else:
             break
 
