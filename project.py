@@ -5,7 +5,7 @@ from database import device
 from send_alert import send_email
 from connection_monitor import monitor
 
-def netscan():
+def netscan(): #Andrew
     request = scapy.ARP()
 
     request.pdst = '192.168.1.1/24'
@@ -25,8 +25,8 @@ def netscan():
 
             print("New Device Added - Mac:", element[1].hwsrc, " Ip:", element[1].psrc, " Verified:", "False\n")
             
-def verify():
-    addr = input("Please enter device's IP address (11 char) or MAC address (17 char):\n")
+def verify(): #Andrew
+    addr = input("Please enter device's ip address (11 char) or mac address (17 char):\n")
 
     if(len(addr) == 11):
         temp = device.query.filter_by(ip = addr).first()
@@ -34,7 +34,7 @@ def verify():
         if(temp):
             temp.verified = True
             db.session.commit()
-            print("Device Verified - Mac:", temp.mac, " IP:", temp.ip, "\n")
+            print("Device Verified - Mac:", temp.mac, " Ip:", temp.ip, "\n")
         else:
             print("Invalid Ip Address Entered\n")
     elif(len(addr) == 17):
@@ -43,7 +43,7 @@ def verify():
         if(temp):
             temp.verified = True
             db.session.commit()
-            print("Device Verified - Mac:", temp.mac, " IP:", temp.ip, "\n")
+            print("Device Verified - Mac:", temp.mac, " Ip:", temp.ip, "\n")
         else:
             print("Invalid Mac Address Entered\n")
     else:
@@ -58,34 +58,57 @@ def devList():
     else:
         print("There are no devices in the database.\n")
 
-def deldb():
+def deldb(): #Andrew
     device.query.delete()
     db.session.commit()
 
-def paCap(IPA):
-    #packets = sniff(filter="ether host 00:a3:8e:23:ae:8b")
+def sendforunverified(): #Andrew
+    temp = device.query.all()
+
+    if(temp):
+        for i in temp:
+            paCap(i.ip)
+            send_email(i.ip)
+    else:
+        print("There are no devices in the database.\n")
+
+def paCap(IPA): #Brandon
     packet = scapy.IP(src=f"{IPA}")
     scapy.wrpcap("captured.pcap",packet)
     packet.show()
 
+def online(): #Andrew - Incomplete
+    IPA = input("Please input an 11 character IP address to check.")
 
-def main():
+    if(len(IPA) != 11):
+        print("Invalid IP address.")
+        return
+
+    packet = scapy.IP(src=f"{IPA}")
+
+    if(packet):
+        print("Device is online.\n")
+    else:
+        print("Cannot reach the specified device.\n")
+
+
+def main(): #Andrew
     if not database_exists('sqlite:///devices.db'):
         db.create_all()
-    IPA = "192.168.1.0" #PLACEHOLDER
+
     while(True):
         option = input("Please select an option (To quit, input letter):\n1. Scan Network for Devices\n2. Send Email for all Non-Verified devices\n3. Verify Device (Given IP or MAC address)\n4. View list of devices\n5. Delete all devices from database\n6. Packet Capture\n7. Main Device Status Monitor (Ctrl+C to End)\n")
 
         if(option == "1"):
             netscan()
         elif(option == "2"):
-            send_email(IPA)
+            sendforunverified()
         elif(option == "3"):
             verify()
         elif(option == "4"):
             devList()
         elif(option == "5"):
-            deldb()
+            online()
         elif(option == "6"):
             paCap(IPA)
         elif(option == "7"):

@@ -1,3 +1,4 @@
+#Brandon
 import base64
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
@@ -17,7 +18,7 @@ from datetime import datetime
 SCOPES = ['https://mail.google.com/']
 
 
-def get_service():
+def get_service(): 
     creds = None
     if os.path.exists('token.pickle'):
         with open('token.pickle', 'rb') as token:
@@ -38,7 +39,7 @@ def get_service():
 
     return service
 
-def send_message(service, user_id, message):
+def send_message(service, user_id, message): 
     try:
         message = service.users().messages().send(userId=user_id,
                 body=message).execute()
@@ -57,7 +58,7 @@ def create_message_with_attachment(
     subject,
     message_text,
     file,
-    ):
+    ): 
     message = MIMEMultipart()
     message['to'] = to
     message['from'] = sender
@@ -100,18 +101,11 @@ def create_message_with_attachment(
     return {'raw': raw_message.decode('utf-8')}
  
 
-def send_email(IPA):
+def send_email(IPA): 
     service = get_service()
     user_id = 'me'
     dt = datetime.now()
     sdt = dt.strftime("%m-%d-%Y, %H:%M:%S")
     msg = create_message_with_attachment('148networkmas@gmail.com', 'brandonalow@gmail.com', f'Unidentified Device: {IPA}',f'This is an automated system message:\nCaptured Packet from Unidentified Device.\n{sdt}', './captured.pcap')
     send_message(service, user_id, msg)
-    
-#For updating tokens
-#def main():
-#    IPA = "192.168.1.0"
-#    send_email(IPA)
-#
-#if __name__ == "__main__":
-#    main()
+
