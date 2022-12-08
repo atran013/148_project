@@ -6,13 +6,11 @@ import time
 
 FILE = os.path.join(os.getcwd(), "networkinfo.log")
 
-def ping():
+def ping(host):
 	try:
 		socket.setdefaulttimeout(3)
 
 		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
-		host = "8.8.8.8"
 		port = 53
 
 		server_address = (host, port)
@@ -33,9 +31,9 @@ def calculate_time(start, stop):
 	return str(datetime.timedelta(seconds=seconds)).split(".")[0]
 
 
-def first_check():
+def first_check(host):
 
-	if ping():
+	if ping(host):
 		live = "\n--------CONNECTION SUCCESSFUL--------\n"
 		print(live)
 		connection_acquired_time = datetime.datetime.now()
@@ -59,24 +57,38 @@ def first_check():
 			file.write(not_live)
 		return False
 
+def IP_check(host): #Brandon
+	print(host)
+	if ping(host):
+		live = "--DEVICE ONLINE---\n"
+		print(live)
 
-def monitor():
+		return True
+
+	else:
+		not_live = "\n--DEVICE OFFLINE--\n"
+		print(not_live)
+  
+		return False
+
+
+def monitor(host):
 	monitor_start_time = datetime.datetime.now()
 	monitoring_date_time = "Monitoring Starts: " + \
 		str(monitor_start_time).split(".")[0]
 
-	if first_check():
+	if first_check(host):
 		print(monitoring_date_time)
 
 	else:
 		while True:
 		
-			if not ping():
+			if not ping(host):
 				
 				time.sleep(1)
 			else:
 				
-				first_check()
+				first_check(host)
 				print(monitoring_date_time)
 				break
 
@@ -87,7 +99,7 @@ def monitor():
 
 	while True:
 	
-		if ping():
+		if ping(host):
 			
 			time.sleep(5)
 
@@ -99,7 +111,7 @@ def monitor():
 			with open(FILE, "a") as file:
 				file.write(fail_msg + "\n")
 
-			while not ping():
+			while not ping(host):
 			
 				time.sleep(1)
 

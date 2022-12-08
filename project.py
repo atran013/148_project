@@ -4,6 +4,7 @@ from sqlalchemy_utils import database_exists
 from database import device
 from send_alert import send_email
 from connection_monitor import monitor
+from connection_monitor import IP_check
 
 def netscan(): #Andrew
     request = scapy.ARP()
@@ -77,6 +78,14 @@ def paCap(IPA): #Brandon
     scapy.wrpcap("captured.pcap",packet)
     packet.show()
 
+def status(): #Brandon - Incomplete
+    IPA = input("Input IP (11 char):\n")
+    if (len(IPA) != 11):
+        print("Invalid IP address")
+        return
+    IP_check(IPA)
+    
+
 def online(): #Andrew - Incomplete
     IPA = input("Please input an 11 character IP address to check.")
 
@@ -108,11 +117,13 @@ def main(): #Andrew
         elif(option == "4"):
             devList()
         elif(option == "5"):
-            online()
+            status()
+            #online()
         elif(option == "6"):
             paCap(IPA)
         elif(option == "7"):
-            monitor()
+            host = "8.8.8.8"
+            monitor(host)
         else:
             break
 
