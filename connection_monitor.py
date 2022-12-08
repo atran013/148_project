@@ -66,7 +66,7 @@ def IP_check(host): #Brandon
 		return True
 
 	else:
-		not_live = "\n--DEVICE OFFLINE--\n"
+		not_live = "--DEVICE OFFLINE--\n"
 		print(not_live)
   
 		return False
