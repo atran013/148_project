@@ -1,3 +1,5 @@
+#Referenced Code: https://www.geeksforgeeks.org/python-script-to-monitor-network-connection-and-saving-into-log-file/
+#Written and Edited by Brandon
 import os
 import sys
 import socket
@@ -129,5 +131,3 @@ def monitor(host):
 				
 				file.write(uptime_message + "\n")
 				file.write(unavailablity_time + "\n")
-
-#monitor()

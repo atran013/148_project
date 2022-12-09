@@ -1,4 +1,7 @@
-#Andrew
+#Flask/SQLAlchemy references
+#https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/
+#https://sqlalchemy-utils.readthedocs.io/en/latest/
+#Written by Andrew
 from sqlalchemy.sql import func
 from flask import Flask 
 from flask_sqlalchemy import SQLAlchemy 

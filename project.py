@@ -1,3 +1,7 @@
+#Referenced for general scapy usage:
+#https://scapy.readthedocs.io/en/latest/usage.html
+#https://scapy.readthedocs.io/en/latest/extending.html
+#https://wiki.sans.blue/Tools/pdfs/ScapyCheatSheet_v0.2.pdf
 from database import db
 import scapy.all as scapy
 from sqlalchemy_utils import database_exists
@@ -8,6 +12,7 @@ from connection_monitor import IP_check
 import socket as socket
 
 def netscan(): #Andrew
+    #Referenced Code: https://www.geeksforgeeks.org/network-scanning-using-scapy-module-python/
     request = scapy.ARP()
 
     hostname = socket.gethostname()
@@ -43,7 +48,7 @@ def verify(): #Andrew
     else:
         print("Invalid Ip Address Entered\n")
 
-def devList():
+def devList(): #Andrew
     temp = device.query.all()
 
     if(temp):

@@ -1,4 +1,7 @@
-#Brandon
+#Referenced Code: 
+#https://www.thepythoncode.com/article/use-gmail-api-in-python
+#https://developers.google.com/gmail/api/quickstart/python
+#Written and Edited by Brandon
 import base64
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
