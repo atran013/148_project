@@ -84,21 +84,6 @@ def status(): #Brandon
         print("Invalid IP address")
         return
     IP_check(IPA)
-    
-
-def online(): #Andrew - Incomplete
-    IPA = input("Please input an 11 character IP address to check.")
-
-    if(len(IPA) != 11):
-        print("Invalid IP address.")
-        return
-
-    packet = scapy.IP(src=f"{IPA}")
-
-    if(packet):
-        print("Device is online.\n")
-    else:
-        print("Cannot reach the specified device.\n")
 
 
 def main(): #Andrew
@@ -119,7 +104,7 @@ def main(): #Andrew
         elif(option == "5"):
             status()
         elif(option == "6"):
-            paCap(IPA)
+            paCap(input("Please enter an IP address to capture from: "))
         elif(option == "7"):
             host = "8.8.8.8"
             monitor(host)
