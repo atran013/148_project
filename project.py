@@ -32,28 +32,16 @@ def netscan(): #Andrew
             print("New Device Added - Mac:", element[1].hwsrc, " Ip:", element[1].psrc, " Verified:", "False\n")
             
 def verify(): #Andrew
-    addr = input("Please enter device's ip address (11 char) or mac address (17 char):\n")
+    addr = input("Please enter device's ip address:\n")
 
-    if(len(addr) == 11):
-        temp = device.query.filter_by(ip = addr).first()
+    temp = device.query.filter_by(ip = addr).first()
 
-        if(temp):
-            temp.verified = True
-            db.session.commit()
-            print("Device Verified - Mac:", temp.mac, " Ip:", temp.ip, "\n")
-        else:
-            print("Invalid Ip Address Entered\n")
-    elif(len(addr) == 17):
-        temp = device.query.filter_by(mac = addr).first()
-
-        if(temp):
-            temp.verified = True
-            db.session.commit()
-            print("Device Verified - Mac:", temp.mac, " Ip:", temp.ip, "\n")
-        else:
-            print("Invalid Mac Address Entered\n")
+    if(temp):
+        temp.verified = True
+        db.session.commit()
+        print("Device Verified - Mac:", temp.mac, " Ip:", temp.ip, "\n")
     else:
-        print('Invalid Address Entered\n')
+        print("Invalid Ip Address Entered\n")
 
 def devList():
     temp = device.query.all()
@@ -84,10 +72,7 @@ def paCap(IPA): #Brandon
     packet.show()
 
 def status(): #Brandon
-    IPA = input("Input IP (11 char):\n")
-    if (len(IPA) != 11):
-        print("Invalid IP address")
-        return
+    IPA = input("Input IP address:\n")
     IP_check(IPA)
 
 
