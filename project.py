@@ -81,7 +81,7 @@ def main(): #Andrew
         db.create_all()
 
     while(True):
-        option = input("Please select an option (To quit, input letter):\n1. Scan Network for Devices\n2. Send Email for all Non-Verified devices\n3. Verify Device (Given IP or MAC address)\n4. View list of devices\n5. Check device status\n6. Delete all devices from database\n7. Main Device Status Monitor (Ctrl+C to End)\n")
+        option = input("Please select an option (To quit, input letter):\n1. Scan Network for Devices\n2. Send Email for all Non-Verified devices\n3. Verify Device (Given IP Address)\n4. View list of devices\n5. Check device status\n6. Delete all devices from database\n7. Main Device Status Monitor (Ctrl+C to End)\n")
 
         if(option == "1"):
             netscan()

@@ -105,6 +105,6 @@ def send_email(IPA):
     user_id = 'me'
     dt = datetime.now()
     sdt = dt.strftime("%m-%d-%Y, %H:%M:%S")
-    msg = create_message_with_attachment('148networkmas@gmail.com', 'brandonalow@gmail.com', f'Unidentified Device: {IPA}',f'This is an automated system message:\nCaptured Packet from Unidentified Device.\n{sdt}', './captured.pcap')
+    msg = create_message_with_attachment('148networkmas@gmail.com', 'andrew.h.tran01@sjsu.edu', f'Unidentified Device: {IPA}',f'This is an automated system message:\nCaptured Packet from Unidentified Device.\n{sdt}', './captured.pcap')
     send_message(service, user_id, msg)
 
