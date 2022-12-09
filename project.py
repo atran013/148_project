@@ -5,11 +5,16 @@ from database import device
 from send_alert import send_email
 from connection_monitor import monitor
 from connection_monitor import IP_check
+import socket as socket
 
 def netscan(): #Andrew
     request = scapy.ARP()
 
-    request.pdst = '192.168.1.1/24'
+    hostname = socket.gethostname()
+    IPA = socket.gethostbyname(hostname)
+    parts = IPA.split(".")
+
+    request.pdst = (parts[0] + "." + parts[1] + "." + parts[2] + ".0/24")
     broadcast = scapy.Ether()
 
     broadcast.dst = 'ff:ff:ff:ff:ff:ff'
@@ -91,7 +96,7 @@ def main(): #Andrew
         db.create_all()
 
     while(True):
-        option = input("Please select an option (To quit, input letter):\n1. Scan Network for Devices\n2. Send Email for all Non-Verified devices\n3. Verify Device (Given IP or MAC address)\n4. View list of devices\n5. Check device status\n6. Packet Capture\n7. Main Device Status Monitor (Ctrl+C to End)\n")
+        option = input("Please select an option (To quit, input letter):\n1. Scan Network for Devices\n2. Send Email for all Non-Verified devices\n3. Verify Device (Given IP or MAC address)\n4. View list of devices\n5. Check device status\n6. Delete all devices from database\n7. Main Device Status Monitor (Ctrl+C to End)\n")
 
         if(option == "1"):
             netscan()
@@ -104,7 +109,7 @@ def main(): #Andrew
         elif(option == "5"):
             status()
         elif(option == "6"):
-            paCap(input("Please enter an IP address to capture from: "))
+            deldb()
         elif(option == "7"):
             host = "8.8.8.8"
             monitor(host)
